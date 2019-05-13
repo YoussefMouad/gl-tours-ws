@@ -1,5 +1,7 @@
 <?php
 
+use DesignMyNight\Mongodb\MongodbPassportServiceProvider;
+
 return [
 
     /*
@@ -174,6 +176,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // MongoDB
+        DesignMyNight\Mongodb\MongodbPassportServiceProvider::class,
 
     ],
 
