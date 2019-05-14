@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ad;
+use App\Http\Resources\Ads;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,8 +17,7 @@ class AdController extends Controller
      */
     public function index()
     {
-        $ads = Ad::all();
-        return response()->json($ads);
+        return response()->json(Ads::collection(Ad::all()));
     }
 
     /**
@@ -51,7 +51,7 @@ class AdController extends Controller
      */
     public function show(Ad $ad)
     {
-        return response()->json($ad);
+        return response()->json(new Ads($ad));
     }
 
     /**

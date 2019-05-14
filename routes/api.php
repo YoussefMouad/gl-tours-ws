@@ -25,3 +25,4 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 Route::resource('ads', 'AdController');
 Route::resource('places', 'PlaceController');
+Route::get('places/{latitude}/{longitude}/{distance?}', 'PlaceController@placesByArea');

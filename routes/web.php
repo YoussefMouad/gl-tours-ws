@@ -19,10 +19,12 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    $place = new Place;
-    $place->name = "Afriquia Gas Station";
-    $place->picture = "http://127.0.0.1:8000/storage/places/April2019/GacoyjXq6njZDWf9AJz8.png";
-    $place->location = ["latitude" => 34.060319, "longitude" => -4.9438143];
+//    $place = new Place;
+//    $place->name = "Afriquia Gas Station";
+//    $place->picture = "http://127.0.0.1:8000/storage/places/April2019/GacoyjXq6njZDWf9AJz8.png";
+//    $place->location = ["latitude" => 34.060319, "longitude" => -4.9438143];
+
+    $place = Place::find("5cd99c840dcd78306c003cae");
 
     $ad = new Ad;
     $ad->title = "Barrows LLC";
@@ -34,7 +36,6 @@ Route::get('/test', function () {
     $place->save();
     $ad = $place->ads()->save($ad);
 
-    $place->save();
 
     dd($place->id, $ad);
 });

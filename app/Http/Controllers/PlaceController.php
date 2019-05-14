@@ -45,16 +45,13 @@ class PlaceController extends Controller
             "type" => "Point",
             "coordinates" => [+$request->latitude, +$request->longitude],
         ];
-//        $place->location = [
-//        "type" => "Point",
-//        "coordinates" => [+$request->latitude, +$request->longitude],
-//    ];
+
         $place->save();
         //$place = Place::create($request->all());
 
         return response()->json([
             'message' => 'Great success! New place created',
-            'place' => $place
+            'place' => new Places($place),
         ]);
     }
 
@@ -90,7 +87,7 @@ class PlaceController extends Controller
 
         return response()->json([
             'message' => 'Great success! The place updated',
-            'place' => $place
+            'place' => new Places($place),
         ]);
     }
 
@@ -107,7 +104,33 @@ class PlaceController extends Controller
 
         return response()->json([
             'message' => 'Successfully deleted a place!',
-            "place" => $place,
+            "place" => new Places($place),
+        ]);
+    }
+
+    /**
+     * Get places in an area
+     *
+     * @param Double $latitude
+     * @param Double $longitude
+     * @param int $distance
+     * @return Response
+     */
+    public function placesByArea($latitude, $longitude, $distance = 500)
+    {
+        $places = Place::where('location', 'near', [
+            '$geometry' => [
+                'type' => 'Point',
+                'coordinates' => [
+                    "latitude" => +$latitude,
+                    "longitude" => +$longitude,
+                ],
+            ],
+            '$maxDistance' => +$distance,
+        ]);
+
+        return response()->json([
+            "places" => Places::collection($places->get()),
         ]);
     }
 }
