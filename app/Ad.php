@@ -13,6 +13,7 @@ class Ad extends Eloquent
         'description',
         'picture',
         'date',
+		'place_id',
     ];
 
     public function place()
